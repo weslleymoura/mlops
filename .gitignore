@@ -25,7 +25,13 @@ mlruns/
 mlartifacts/
 
 # IDEs
-.vscode/
+# Permitir configurações compartilhadas do VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
 .idea/
 *.swp
 *.swo

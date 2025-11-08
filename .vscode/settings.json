@@ -1,0 +1,43 @@
+{
+    // Configurações recomendadas para o projeto MLOps
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "mlops-util-env": false // Mostrar o ambiente virtual
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/mlops-util-env/bin/python",
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    // Configurações do terminal
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    // Formatação
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "autopep8",
+    // Linting
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    // Ports - sugestões de encaminhamento
+    "remote.autoForwardPorts": false,
+    "remote.portsAttributes": {
+        "5000": {
+            "label": "MLflow UI",
+            "onAutoForward": "notify"
+        },
+        "9001": {
+            "label": "MinIO Console",
+            "onAutoForward": "notify"
+        },
+        "9000": {
+            "label": "MinIO API",
+            "onAutoForward": "silent"
+        },
+        "5433": {
+            "label": "Postgres (MLflow)",
+            "onAutoForward": "silent"
+        },
+        "5434": {
+            "label": "Postgres (MLOps)",
+            "onAutoForward": "silent"
+        }
+    }
+}
