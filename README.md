@@ -11,7 +11,7 @@ Este repositório prepara um ambiente de estudo com **MinIO + Postgres + MLflow*
 
 ---
 
-## 🚀 Como usar no GitHub Codespaces
+## 🚀 Como usar no GitHub Codespaces 
 
 ### Opção 1: Trabalhar dentro do Codespace (ambiente completo)
 
