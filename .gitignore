@@ -1,0 +1,43 @@
+# Python virtual environment
+mlops-util-env/
+# Python virtual environment
+.venv/
+venv/
+env/
+ENV/
+mlops-util-env/
+
+# Python cache
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Environment variables
+.env
+.env.local

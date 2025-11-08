@@ -1,0 +1,96 @@
+version: "3"
+services:
+
+  minio:
+    image: minio/minio
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: password
+    healthcheck:
+      test: timeout 5s bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1
+      interval: 1s
+      timeout: 10s
+      retries: 5
+    command: server /data --console-address ":9001"
+
+  minio-create-bucket:
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      sh -c "
+      mc alias set minio http://minio:9000 user password &&
+      if mc ls minio/bucket > /dev/null 2>&1; then
+        echo 'bucket already exists'
+      else
+        mc mb minio/bucket
+      fi
+      "
+      
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+
+  postgres-mlops:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: mlops_db
+      POSTGRES_USER: mlops_user
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d mlops_db -U mlops_user" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mlflow-server:
+    build:
+      context: .
+      dockerfile: "${DOCKERFILE:-Dockerfile}"
+    depends_on:
+      - minio-create-bucket
+      - postgres
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    environment:
+      #MLFLOW_S3_ENDPOINT_URL: http://localhost:9000
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: user
+      AWS_SECRET_ACCESS_KEY: password
+      MLFLOW_TRACKING_URI: http://localhost:5000
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri postgresql://user:password@postgres:5432/db
+      --default-artifact-root s3://bucket
+      --gunicorn-opts "--log-level debug"
+
+  client:
+    build:
+      context: .
+      dockerfile: "${DOCKERFILE:-Dockerfile}"
+    depends_on:
+      - mlflow-server
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow-server:5000
+      AWS_ACCESS_KEY_ID: user
+      AWS_SECRET_ACCESS_KEY: password
+    command: tail -f /dev/null
