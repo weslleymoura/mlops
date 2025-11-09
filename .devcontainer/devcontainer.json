@@ -12,7 +12,7 @@
     5434,
     8888
   ],
-  "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && docker compose up -d",
+  "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && pip install -r requirements.txt",
   "postStartCommand": "docker compose up -d",
   "customizations": {
     "vscode": {
