@@ -4,7 +4,14 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "forwardPorts": [9000, 9001, 5000, 5433, 5434],
+  "forwardPorts": [
+    9000,
+    9001,
+    5000,
+    5433,
+    5434,
+    8888
+  ],
   "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && docker compose up -d",
   "postStartCommand": "docker compose up -d",
   "customizations": {
