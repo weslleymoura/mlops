@@ -27,16 +27,15 @@ Aguarde 2-3 minutos. O Codespace vai configurar tudo automaticamente.
 
 ### 2️⃣ Conectar VS Code Local (1 minuto)
 
-**Opção A: Pelo GitHub** (mais rápido)
-```
-GitHub → Codespaces → [...] → Open in Visual Studio Code
-```
-
-**Opção B: Pelo VS Code**
+**Opção A: Pelo VS Code**
 ```
 Ctrl+Shift+P → "Codespaces: Connect to Codespace" → Selecione o codespace
 ```
 
+**Opção B: Pelo GitHub** 
+```
+GitHub → Codespaces → [...] → Open in Visual Studio Code
+```
 ---
 
 ### 3️⃣ Testar (30 segundos)
@@ -117,6 +116,6 @@ Feche o VS Code → Abra novamente → Tente conectar de novo
 
 ---
 
-📚 **Documentação completa**: [README.md](./README.md)
+📚 **Documentação completa**: [README.md](../README.md)
 ✅ **Checklist detalhado**: [CHECKLIST.md](./CHECKLIST.md)
 📌 **Referência de comandos**: [REFERENCE.md](./REFERENCE.md)

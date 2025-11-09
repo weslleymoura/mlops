@@ -2,14 +2,14 @@
 
 ## 🔗 Conectar VS Code ao Codespace
 
-**Pelo GitHub (mais rápido):**
-```
-GitHub → Codespaces → [...] → Open in Visual Studio Code
-```
-
 **Pelo VS Code:**
 ```
 Ctrl+Shift+P → "Codespaces: Connect to Codespace"
+```
+
+**Pelo GitHub:**
+```
+GitHub → Codespaces → [...] → Open in Visual Studio Code
 ```
 
 ---
@@ -162,6 +162,6 @@ docker compose down
 
 ## 📚 Documentação
 
-- **[README.md](./README.md)** - Documentação completa
+- **[README.md](../README.md)** - Documentação completa
 - **[QUICKSTART.md](./QUICKSTART.md)** - Setup em 5 minutos
 - **[CHECKLIST.md](./CHECKLIST.md)** - Verificação passo a passo

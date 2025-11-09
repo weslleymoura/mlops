@@ -31,7 +31,6 @@ Você vai usar o **VS Code instalado no seu computador** conectado a um **GitHub
 ## O que está incluso
 - `docker-compose.yml` — MinIO, Postgres e MLflow Server
 - `.devcontainer/` — Configuração automática do Codespace
-- `notebooks/example_mlflow.ipynb` — Notebook de exemplo
 - `requirements.txt` — Dependências Python
 
 ---
@@ -71,7 +70,7 @@ O Codespace vai iniciar automaticamente:
 3. Digite: `Codespaces: Connect to Codespace`
 4. Selecione o Codespace da lista
 
-**Opção B: Pelo GitHub** (mais rápido)
+**Opção B: Pelo GitHub** (VS Code no browser)
 1. No GitHub, clique em **Code** → **Codespaces**
 2. Clique nos **três pontos (...)** ao lado do Codespace
 3. Selecione **Open in Visual Studio Code**
@@ -91,7 +90,6 @@ No VS Code conectado ao Codespace:
 |-------|---------|-----------|
 | 5000 | MLflow UI | http://localhost:5000 |
 | 9001 | MinIO Console | http://localhost:9001 |
-| 5433 | Postgres (MLflow) | localhost:5433 |
 
 3. **Teste o MLflow**:
    - Abra seu navegador: http://localhost:5000
@@ -151,7 +149,31 @@ docker compose up -d
 
 **Importante:** Sempre pare o Codespace quando não estiver usando para economizar créditos do GitHub!
 
+---
 
+## 💾 Salvando suas alterações
+
+Quando você fizer modificações no código, notebooks ou criar novos arquivos, salve as alterações no GitHub:
+
+```bash
+# 1. Adicionar todas as alterações
+git add .
+
+# 2. Criar um commit com mensagem descritiva
+git commit -m "Descreva aqui o que você alterou"
+
+# 3. Enviar para o GitHub
+git push origin main
+```
+
+**Exemplo:**
+```bash
+git add .
+git commit -m "Adicionar experimento de regressão linear"
+git push origin main
+```
+
+**Dica:** Faça commits frequentes para não perder seu trabalho! 💡
 
 ---
 
@@ -210,9 +232,9 @@ docker compose down && docker compose up -d
 
 ## 📚 Documentação Adicional
 
-- **[Guia Rápido](./QUICKSTART.md)** - Setup em 3 passos (5 minutos)
-- **[Checklist](./CHECKLIST.md)** - Verificação completa passo a passo
-- **[Referência](./REFERENCE.md)** - Comandos essenciais
+- **[Guia Rápido](./docs/QUICKSTART.md)** - Setup em 3 passos (5 minutos)
+- **[Checklist](./docs/CHECKLIST.md)** - Verificação completa passo a passo
+- **[Referência](./docs/REFERENCE.md)** - Comandos essenciais
 
 ---
 

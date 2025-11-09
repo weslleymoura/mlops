@@ -112,4 +112,4 @@ docker compose up -d
 
 ---
 
-📚 **Documentação**: [README.md](./README.md) | [QUICKSTART.md](./QUICKSTART.md) | [REFERENCE.md](./REFERENCE.md)
+📚 **Documentação**: [README.md](../README.md) | [QUICKSTART.md](./QUICKSTART.md) | [REFERENCE.md](./REFERENCE.md)
