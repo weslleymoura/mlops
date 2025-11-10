@@ -151,7 +151,69 @@ docker compose up -d
 
 ---
 
-## 💾 Salvando suas alterações
+## � Ambiente Python Local com Conda
+
+Se você quiser desenvolver localmente no seu computador, use **Conda** para garantir que todos tenham a mesma versão do Python e evitar problemas de compilação.
+
+### 1. Instalar o Conda
+
+Se você ainda não tem o Conda instalado, escolha uma opção:
+- **Miniconda** (leve, recomendado): https://docs.conda.io/en/latest/miniconda.html
+- **Anaconda** (completo): https://www.anaconda.com/download
+
+### 2. Criar e configurar o ambiente
+
+```bash
+# Criar ambiente com Python 3.13
+conda create -n mlops-util-env python=3.13
+
+# Ativar o ambiente
+conda activate mlops-util-env
+
+# Instalar pacotes do arquivo requirements_conda.txt
+conda install -c conda-forge --file requirements_conda.txt
+
+# Atualizar pip
+pip install --upgrade pip
+
+# Instalar pacotes não disponíveis no conda
+pip install brazilcep
+```
+
+### 3. Verificar instalação
+
+```bash
+# Ver pacotes instalados
+conda list
+
+# Testar imports
+python -c "import mlflow, pandas, sklearn; print('✅ Tudo OK!')"
+
+# Listar kernels Jupyter
+jupyter kernelspec list
+```
+
+### Comandos úteis
+
+```bash
+# Ativar ambiente
+conda activate mlops-util-env
+
+# Desativar ambiente
+conda deactivate
+
+# Listar todos os ambientes
+conda env list
+
+# Remover ambiente (se precisar recomeçar)
+conda env remove -n mlops-util-env
+```
+
+**Nota:** O arquivo `requirements_conda.txt` lista todas as dependências do projeto.
+
+---
+
+## �💾 Salvando suas alterações
 
 Quando você fizer modificações no código, notebooks ou criar novos arquivos, salve as alterações no GitHub:
 
@@ -239,5 +301,4 @@ docker compose down && docker compose up -d
 ---
 
 ## �📝 Licença
-
 Este projeto é um template educacional para estudo de MLOps com MLflow.
