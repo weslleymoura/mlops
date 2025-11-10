@@ -1,241 +1,213 @@
-# MLflow Lab — Template para GitHub Codespaces
+# MLflow Lab — Ambiente Híbrido para MLOps
 
-Este repositório prepara um ambiente de estudo completo com **MinIO + Postgres + MLflow** usando GitHub Codespaces e VS Code local.
+Este repositório prepara um ambiente de estudo com **MinIO + Postgres + MLflow** usando uma arquitetura híbrida: **serviços na nuvem (Codespace)** + **desenvolvimento local (seu computador)**.
 
 ## 🎯 Como funciona
 
-Você vai usar o **VS Code instalado no seu computador** conectado a um **GitHub Codespace** onde os serviços rodam:
+Você vai trabalhar com **dois VS Codes ao mesmo tempo**:
 
 ```
 ┌─────────────────────────────────────┐
-│  Seu Computador                     │
-│  • VS Code (interface)              │
-│  • Navegador (acessar serviços)     │
-└─────────────┬───────────────────────┘
-              │ Conexão automática
-┌─────────────▼───────────────────────┐
-│  GitHub Codespace (Nuvem)           │
-│  • MLflow Server (localhost:5000)   │
-│  • MinIO (localhost:9001)           │
-│  • Postgres                         │
-│  • Seus arquivos e código           │
+│  VS Code #1 - Codespace             │
+│  • Conectado ao GitHub Codespace    │
+│  • Serviços Docker rodando          │
+│  • MLflow, MinIO, Postgres          │
+│  • Apenas para manter serviços UP   │
 └─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│  VS Code #2 - Local                 │
+│  • Seu projeto no computador        │
+│  • Ambiente Conda Python 3.13       │
+│  • Notebooks e código               │
+│  • Acessa serviços via localhost    │
+└─────────────────────────────────────┘
+
+        Port Forwarding Automático
+        localhost:5000 → Codespace
+        localhost:9001 → Codespace
 ```
 
-**Vantagens:**
-- ✅ Não precisa instalar Docker no seu computador
-- ✅ Interface nativa do VS Code (mais rápida que o navegador)
-- ✅ Acesso aos serviços via `localhost` (port forwarding automático)
-- ✅ Seus arquivos ficam seguros no GitHub
+## ✅ Vantagens desta arquitetura
 
-## O que está incluso
-- `docker-compose.yml` — MinIO, Postgres e MLflow Server
-- `.devcontainer/` — Configuração automática do Codespace
-- `requirements.txt` — Dependências Python
+- ✅ **Não precisa Docker local** - Roda no Codespace
+- ✅ **Desenvolvimento no seu PC** - Mais rápido e familiar
+- ✅ **Acesso via localhost** - Transparente via port forwarding
+- ✅ **Notebooks no seu computador** - Commit direto para seu fork
+- ✅ **Economia de recursos** - Codespace só para serviços
 
 ---
 
-## 🚀 Como começar (5 minutos)
+## 🚀 Setup Inicial (15 minutos)
 
 ### Pré-requisitos
 
-#### Pré-requisitos
-
-1. **VS Code** instalado no seu computador ([baixar aqui](https://code.visualstudio.com/))
-2. **Extensão GitHub Codespaces** no VS Code:
-   - Abra o VS Code
-   - Pressione `Ctrl+Shift+X` (Extensions)
-   - Procure por "GitHub Codespaces"
-   - Clique em "Install"
-
-### Passo a passo
-
-#### 1️⃣ Criar o Codespace (2 minutos)
-
-No GitHub, neste repositório:
-1. Clique em **Code** → **Codespaces**
-2. Clique em **Create codespace on main**
-3. Aguarde a criação (2-3 minutos)
-
-O Codespace vai iniciar automaticamente:
-- ✅ Python 3.13 + ambiente virtual
-- ✅ Docker Compose com todos os serviços
-- ✅ MLflow, MinIO e Postgres
-
-#### 2️⃣ Conectar VS Code Local (1 minuto)
-
-**Opção A: Pelo VS Code**
-1. Abra o VS Code no seu computador
-2. Pressione `Ctrl+Shift+P` (ou `Cmd+Shift+P` no Mac)
-3. Digite: `Codespaces: Connect to Codespace`
-4. Selecione o Codespace da lista
-
-**Opção B: Pelo GitHub** (VS Code no browser)
-1. No GitHub, clique em **Code** → **Codespaces**
-2. Clique nos **três pontos (...)** ao lado do Codespace
-3. Selecione **Open in Visual Studio Code**
-
-#### 3️⃣ Verificar que tudo está funcionando (30 segundos)
-
-No VS Code conectado ao Codespace:
-
-1. **Verifique a conexão**: 
-   - Canto inferior esquerdo: **> Codespaces: [nome]** ✅
-
-2. **Verifique as portas**:
-   - Abra o painel **PORTS** (View → Ports)
-   - Você deve ver as portas encaminhadas:
-
-| Porta | Serviço | URL Local |
-|-------|---------|-----------|
-| 5000 | MLflow UI | http://localhost:5000 |
-| 9001 | MinIO Console | http://localhost:9001 |
-
-3. **Teste o MLflow**:
-   - Abra seu navegador: http://localhost:5000
-   - Você deve ver a interface do MLflow ✅
-
-4. **Verifique os containers**:
-   - Abra o terminal no VS Code (`` Ctrl+` ``)
-   - Execute: `docker compose ps`
-   - Todos devem estar "Up" ✅
+1. **Conta no GitHub** (gratuita)
+2. **VS Code** instalado ([baixar](https://code.visualstudio.com/))
+3. **Extensão GitHub Codespaces** no VS Code
+4. **Anaconda/Miniconda** instalado ([baixar](https://docs.conda.io/en/latest/miniconda.html))
+5. **Git** instalado
 
 ---
 
-## � Usando o ambiente
+## 📋 Parte 1: Fork e Codespace (Serviços)
 
-### Executar o notebook de exemplo
+### 1. Fazer Fork do repositório
 
-1. No VS Code, abra: `notebooks/example_mlflow.ipynb`
-2. Selecione o kernel Python (mlops-util-env)
-3. Execute as células (`Run All` ou `Shift+Enter`)
-4. Veja os experimentos aparecerem no MLflow: http://localhost:5000
+1. No GitHub, acesse: https://github.com/weslleymoura/mlops
+2. Clique em **Fork** (canto superior direito)
+3. Aguarde a criação do fork na sua conta
 
-### Acessar os serviços
+### 2. Criar Codespace (serviços na nuvem)
 
-| Serviço | URL | Credenciais |
-|---------|-----|-------------|
-| **MLflow UI** | http://localhost:5000 | - |
-| **MinIO Console** | http://localhost:9001 | user / password |
+No **seu fork** do GitHub:
 
-### Comandos úteis do Docker
+1. Clique em **Code** → **Codespaces**
+2. Clique em **Create codespace on main**
+3. Aguarde 2-3 minutos (instalação automática)
 
-Execute no terminal do VS Code (conectado ao Codespace):
+✅ O Codespace vai inicializar automaticamente:
+- Python 3.13 + ambiente virtual
+- Docker Compose com MLflow, MinIO e Postgres
+
+### 3. Conectar VS Code #1 ao Codespace
+
+1. Abra o VS Code no seu computador
+2. Pressione `Ctrl+Shift+P` (ou `Cmd+Shift+P` no Mac)
+3. Digite: `Codespaces: Connect to Codespace`
+4. Selecione seu Codespace
+
+### 4. Verificar serviços no Codespace
+
+No VS Code conectado ao Codespace:
 
 ```bash
 # Ver status dos containers
 docker compose ps
 
-# Ver logs do MLflow
-docker logs -f mlops-mlflow-server-1
-
-# Reiniciar o MLflow
-docker restart mlops-mlflow-server-1
-
-# Parar todos os serviços
-docker compose down
-
-# Iniciar todos os serviços
-docker compose up -d
+# Todos devem estar "Up" ✅
 ```
 
-### Gerenciar o Codespace
+**Se o MLflow não subir:**
 
-**Ao terminar de usar:**
+```bash
+docker compose restart mlflow-server
+docker compose logs mlflow-server
+```
 
-1. No terminal do VS Code: `docker compose down`
-2. Desconectar: Feche o VS Code ou `Ctrl+Shift+P` → `Close Remote Connection`
-3. No GitHub: https://github.com/codespaces → `[...]` → **Stop codespace**
+### 5. Testar acesso aos serviços
 
-**Importante:** Sempre pare o Codespace quando não estiver usando para economizar créditos do GitHub!
+No seu **navegador local**:
+- MLflow: http://localhost:5000
+- MinIO Console: http://localhost:9001 (user: `user`, senha: `password`)
+
+✅ **Pronto!** Deixe este VS Code aberto (conectado ao Codespace).
 
 ---
 
-## � Ambiente Python Local com Conda
+## 💻 Parte 2: Ambiente Local (Desenvolvimento)
 
-Se você quiser desenvolver localmente no seu computador, use **Conda** para garantir que todos tenham a mesma versão do Python e evitar problemas de compilação.
+### 1. Clonar seu fork localmente
 
-### 1. Instalar o Conda
+```bash
+# Substituir SEU-USUARIO pelo seu usuário do GitHub
+git clone https://github.com/SEU-USUARIO/mlops.git
+cd mlops
+```
 
-Se você ainda não tem o Conda instalado, escolha uma opção:
-- **Miniconda** (leve, recomendado): https://docs.conda.io/en/latest/miniconda.html
-- **Anaconda** (completo): https://www.anaconda.com/download
-
-### 2. Criar e configurar o ambiente
+### 2. Configurar ambiente Conda
 
 ```bash
 # Criar ambiente com Python 3.13
 conda create -n mlops-util-env python=3.13
 
-# Ativar o ambiente
-conda activate mlops-util-env
-
-# Instalar pacotes do arquivo requirements_conda.txt
-conda install -c conda-forge --file requirements_conda.txt
-
-# Atualizar pip
-pip install --upgrade pip
-
-# Instalar pacotes não disponíveis no conda
-pip install brazilcep
-```
-
-### 3. Verificar instalação
-
-```bash
-# Ver pacotes instalados
-conda list
-
-# Testar imports
-python -c "import mlflow, pandas, sklearn; print('✅ Tudo OK!')"
-
-# Listar kernels Jupyter
-jupyter kernelspec list
-```
-
-### Comandos úteis
-
-```bash
 # Ativar ambiente
 conda activate mlops-util-env
 
-# Desativar ambiente
-conda deactivate
+# Instalar dependências
+conda install -c conda-forge --file requirements_conda.txt
 
-# Listar todos os ambientes
-conda env list
-
-# Remover ambiente (se precisar recomeçar)
-conda env remove -n mlops-util-env
+# Registrar kernel Jupyter
+python -m ipykernel install --user --name mlops-util-env --display-name "Python 3.13 (mlops-util-env)"
 ```
 
-**Nota:** O arquivo `requirements_conda.txt` lista todas as dependências do projeto.
+### 3. Abrir VS Code #2 (Local)
+
+```bash
+# No diretório do projeto
+code .
+```
+
+Ou abra o VS Code e: **File → Open Folder** → Selecione a pasta `mlops`
+
+### 4. Selecionar ambiente Conda no VS Code
+
+1. Abra um notebook: `notebooks/example_mlflow.ipynb`
+2. Clique no seletor de kernel (canto superior direito)
+3. Selecione: **Python 3.13 (mlops-util-env)**
+
+### 5. Testar conexão com MLflow
+
+Execute no notebook ou terminal Python:
+
+```python
+import mlflow
+mlflow.set_tracking_uri('http://localhost:5000')
+print(mlflow.get_tracking_uri())
+```
+
+Se aparecer `http://localhost:5000`, está funcionando! ✅
 
 ---
 
-## �💾 Salvando suas alterações
+## 🔄 Fluxo de Trabalho Diário
 
-Quando você fizer modificações no código, notebooks ou criar novos arquivos, salve as alterações no GitHub:
+### Iniciar trabalho
 
-```bash
-# 1. Adicionar todas as alterações
-git add .
+1. **VS Code #1 (Codespace)**:
+   - Conectar ao Codespace
+   - Verificar: `docker compose ps`
+   - Deixar aberto em segundo plano
 
-# 2. Criar um commit com mensagem descritiva
-git commit -m "Descreva aqui o que você alterou"
+2. **VS Code #2 (Local)**:
+   - Ativar ambiente: `conda activate mlops-util-env`
+   - Abrir projeto: `code .`
+   - Trabalhar normalmente nos notebooks/código
 
-# 3. Enviar para o GitHub
-git push origin main
-```
+3. **Navegador**:
+   - MLflow UI: http://localhost:5000
+   - MinIO Console: http://localhost:9001
 
-**Exemplo:**
-```bash
-git add .
-git commit -m "Adicionar experimento de regressão linear"
-git push origin main
-```
+### Finalizar trabalho
 
-**Dica:** Faça commits frequentes para não perder seu trabalho! 💡
+1. **No VS Code Local (seu projeto)**:
+   ```bash
+   git add .
+   git commit -m "Descrição das alterações"
+   git push origin main
+   ```
+
+2. **No VS Code do Codespace**:
+   ```bash
+   docker compose down
+   ```
+
+3. **No GitHub**:
+   - Vá em https://github.com/codespaces
+   - Clique em `[...]` → **Stop codespace**
+
+⚠️ **Importante:** Sempre pare o Codespace quando terminar!
+
+---
+
+## 📊 Acessar serviços
+
+| Serviço | URL | Credenciais |
+|---------|-----|-------------|
+| **MLflow UI** | http://localhost:5000 | - |
+| **MinIO Console** | http://localhost:9001 | user / password |
+| **Postgres (MLflow)** | localhost:5433 | user / password |
+| **Postgres (MLOps)** | localhost:5434 | mlops_user / admin |
 
 ---
 
@@ -244,61 +216,53 @@ git push origin main
 ### MLflow não abre (localhost:5000)
 
 ```bash
-# Reinicie o container
-docker restart mlops-mlflow-server-1
-
-# Aguarde 10 segundos e teste
-curl http://localhost:5000/health
+# No VS Code do Codespace
+docker compose restart mlflow-server
+docker compose logs mlflow-server
 ```
 
 ### Portas não funcionam
 
-1. Abra o painel **PORTS** no VS Code (View → Ports)
+1. No VS Code conectado ao Codespace, abra o painel **PORTS**
 2. Verifique se as portas estão "Forwarded"
 3. Se não: Clique direito → "Forward Port" → Digite a porta (5000, 9001, etc)
 
-### Containers não estão rodando
+### Conda não encontra pacotes
 
 ```bash
-# Verificar status
-docker compose ps
-
-# Se estiverem parados, iniciar
-docker compose up -d
-
-# Ver logs se houver erros
-docker compose logs
+# Tente com diferentes canais
+conda install -c conda-forge -c anaconda --file requirements_conda.txt
 ```
 
-### Codespace lento ou travando
+### Kernel do Jupyter não aparece
 
 ```bash
-# Limpar cache do Docker
-docker system prune -a
-
-# Reiniciar serviços
-docker compose down && docker compose up -d
+conda activate mlops-util-env
+python -m ipykernel install --user --name mlops-util-env --display-name "Python 3.13 (mlops-util-env)"
+jupyter kernelspec list
 ```
 
 ---
 
-## � Dicas importantes
+## 💡 Dicas
 
-- ✅ O terminal do VS Code executa comandos **no Codespace** (não no seu PC)
-- ✅ Os arquivos estão **no Codespace** (faça commits para não perder)
-- ✅ Port forwarding é **automático** (localhost funciona direto)
-- ✅ Sempre execute `docker compose down` antes de parar o Codespace
-- ✅ Pare o Codespace no GitHub quando não estiver usando (economiza créditos)
+- ✅ **VS Code #1** (Codespace): Apenas para manter serviços rodando
+- ✅ **VS Code #2** (Local): Para desenvolvimento (notebooks, código)
+- ✅ O Codespace consome créditos gratuitos do GitHub (60h/mês)
+- ✅ Sempre pare o Codespace quando não estiver usando
+- ✅ Port forwarding é automático quando conectado ao Codespace
+- ✅ Seus arquivos ficam no seu fork do GitHub
 
 ---
 
 ## 📚 Documentação Adicional
 
-- **[Guia Rápido](./docs/QUICKSTART.md)** - Setup em 3 passos (5 minutos)
-- **[Checklist](./docs/CHECKLIST.md)** - Verificação completa passo a passo
+- **[Guia Rápido](./docs/QUICKSTART.md)** - Setup em 5 passos
+- **[Checklist](./docs/CHECKLIST.md)** - Verificação completa
 - **[Referência](./docs/REFERENCE.md)** - Comandos essenciais
 
 ---
 
-## �📝 Licença
+## 📝 Licença
+
 Este projeto é um template educacional para estudo de MLOps com MLflow.

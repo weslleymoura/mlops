@@ -1,0 +1,177 @@
+/* custom.css */
+.custom-slide {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.custom-slide h1 {
+    color: #333;
+    text-align: left;
+    font-size: 24px;
+}
+
+.custom-slide h2 {
+    color: #333;
+    text-align: left;
+    font-size: 22px;
+}
+
+.custom-slide h3 {
+    color: #333;
+    text-align: left;
+    font-size: 20px;
+}
+
+.custom-slide p, .custom-slide li {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Custom style for quotes */
+.custom-slide blockquote {
+    background-color: #e0e0e0;
+    border-left: 5px solid #007acc;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-style: italic;
+    color: #555;
+}
+
+.custom-slide blockquote::before {
+    content: "“";
+    font-size: 30px;
+    color: #007acc;
+    margin-right: 10px;
+}
+
+.custom-slide blockquote::after {
+    content: "”";
+    font-size: 30px;
+    color: #007acc;
+    margin-left: 10px;
+}
+
+/* Custom style for information panel */
+.custom-slide .info-panel {
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    color: #31708f;
+}
+
+.custom-slide .info-panel h2 {
+    color: #31708f;
+    margin-top: 0;
+    font-size: 18px;
+}
+
+/* Custom style for image references */
+.custom-slide .image-ref {
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+    display: block;
+    text-align: center;
+}
+
+/* Custom style for AI-generated text stamp */
+.custom-slide .ai-stamp {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #ffeb3b;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #333;
+    border-radius: 5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+/* Custom style for hands-on time callout */
+.custom-slide .hands-on {
+    background-color: #f5f5f5;
+    border: 2px solid #4caf50;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    color: #4caf50;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-slide .hands-on::before {
+    content: " ";
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -75%;
+    left: -75%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+}
+
+.custom-slide .hands-on:hover::before {
+    top: -100%;
+    left: -100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #323030;
+}
+
+tr:nth-child(even) {
+    background-color: #d6e621;
+}
+
+/* Custom style for code snippets */
+.custom-slide code {
+    background-color: #f5f5f5;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #c7254e;
+    font-size: 16px;
+}
+
+.custom-slide pre {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+
+.custom-slide pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 14px;
+    color: #333;
+}

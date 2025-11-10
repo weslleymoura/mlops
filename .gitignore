@@ -47,3 +47,7 @@ Thumbs.db
 # Environment variables
 .env
 .env.local
+
+# Project
+temp/
+train/logs/app.log
