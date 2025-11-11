@@ -5,6 +5,7 @@ import json
 import numpy as np
 import geopy.distance
 import configparser
+import re
 
 # Vamos criar uma função para exibir uma instância de entrega no mapa
 def plot_points(points, markers):
@@ -61,9 +62,19 @@ def load_training_data(path_str):
     # Converte o nome da pasta em uma variável `Path`
     path = Path(path_str)
 
+    # Padrão para validar o nome do arquivo
+    pattern = re.compile(r'^cvrp-0-df-\d+\.json$')
+
     # Passa por todos os arquivos da pasta e carrega os dados em `instances`
     instances = []
     for file in path.iterdir():
+
+        # Verificar se o nome do arquivo segue o padrão
+        if not pattern.match(file.name):
+            print(f"⚠️  Pulando arquivo: {file.name} (não segue o padrão)")
+            continue
+        else:
+            print(f"Processando arquivo: {file.name}")
 
         # Acessa o arquivo
         with open(file) as f:

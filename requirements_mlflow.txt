@@ -1,0 +1,6 @@
+numpy
+scikit-learn
+geopy
+psycopg2-binary
+pandas
+boto3
