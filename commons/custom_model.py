@@ -2,6 +2,7 @@ import mlflow
 from joblib import load
 import configparser
 import geopy.distance
+from typing import Dict, Any, List
 
 class CustomModel(mlflow.pyfunc.PythonModel):
 
@@ -33,8 +34,19 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         app_config.read(app_config_path)
         return app_config
         
-    def predict(self, context, model_input):
-
+    def predict(self, context, model_input: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Make predictions or retrieve model information.
+        
+        Args:
+            context: MLflow context
+            model_input: Dictionary containing 'method' and 'data' keys
+                - method: str - Operation to perform ('predict', 'get_cluster_centroids', 'get_model_version')
+                - data: Any - Input data for the operation
+                
+        Returns:
+            Dictionary containing the results of the operation
+        """
         if 'method' not in model_input:
             raise ValueError("Input must contain a 'method' key to specify the operation")
 
@@ -71,8 +83,18 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         
         return model_uri, model_version_details.run_id, model_version_details.version
         
-    def make_predictions(self, data, model, covered_region_in_km):
-    
+    def make_predictions(self, data: List[float], model, covered_region_in_km: int) -> Dict[str, Any]:
+        """
+        Make predictions for delivery region coverage.
+        
+        Args:
+            data: List containing [latitude, longitude]
+            model: Trained KMeans model
+            covered_region_in_km: Maximum distance for region coverage
+            
+        Returns:
+            Dictionary with prediction results
+        """
         # Prepara as coordenadas do CEP
         coords_cep = (data[0], data[1])
     
@@ -103,8 +125,13 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         return results
     
     # Retorna os centróides de cada cluster
-    def get_cluster_centroids (self):
-
+    def get_cluster_centroids(self) -> List[Dict[str, Any]]:
+        """
+        Get cluster centroids coordinates.
+        
+        Returns:
+            List of dictionaries containing centroid information
+        """
         centers = []
         for i, center in enumerate(self.model.cluster_centers_):
             c = dict()
