@@ -128,7 +128,7 @@ conda activate mlops-util-env
 conda install -c conda-forge --file requirements_conda.txt
 
 # Registrar kernel Jupyter
-python -m ipykernel install --user --name mlops-util-env --display-name "Python 3.13 (mlops-util-env)"
+python -m ipykernel install --user --name mlops-util-env
 ```
 
 ### 3. Abrir VS Code #2 (Local)
@@ -139,24 +139,6 @@ code .
 ```
 
 Ou abra o VS Code e: **File → Open Folder** → Selecione a pasta `mlops`
-
-### 4. Selecionar ambiente Conda no VS Code
-
-1. Abra um notebook: `notebooks/example_mlflow.ipynb`
-2. Clique no seletor de kernel (canto superior direito)
-3. Selecione: **Python 3.13 (mlops-util-env)**
-
-### 5. Testar conexão com MLflow
-
-Execute no notebook ou terminal Python:
-
-```python
-import mlflow
-mlflow.set_tracking_uri('http://localhost:5000')
-print(mlflow.get_tracking_uri())
-```
-
-Se aparecer `http://localhost:5000`, está funcionando! ✅
 
 ---
 

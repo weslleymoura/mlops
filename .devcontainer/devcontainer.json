@@ -12,7 +12,7 @@
     5434
   ],
   "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip",
-  "postStartCommand": "docker compose up -d",
+  "postStartCommand": "docker compose up -d && sleep 10 && docker compose restart mlflow-server",
   "customizations": {
     "vscode": {
       "extensions": [
