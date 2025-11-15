@@ -18,7 +18,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class BootcampEstimator:
+class ClusteringEstimator:
 
     # Construtor
     def __init__(self, env = 'PROD'):

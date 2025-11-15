@@ -2,7 +2,11 @@ import mlflow
 from joblib import load
 import configparser
 import geopy.distance
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
+import pandas as pd
+
+import warnings
+warnings.filterwarnings('ignore')
 
 class CustomModel(mlflow.pyfunc.PythonModel):
 
@@ -24,7 +28,6 @@ class CustomModel(mlflow.pyfunc.PythonModel):
 
         # Load config variables
         self.covered_region_in_km = int(self.app_config[self.env]['covered_region_in_km'])
-        self.run_id = self.app_config['ALL']['run_id']
         self.model_name = self.app_config['ALL']['model_name']
         
     # Carrega das configurações da aplicação
@@ -35,18 +38,7 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         return app_config
         
     def predict(self, context, model_input: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Make predictions or retrieve model information.
-        
-        Args:
-            context: MLflow context
-            model_input: Dictionary containing 'method' and 'data' keys
-                - method: str - Operation to perform ('predict', 'get_cluster_centroids', 'get_model_version')
-                - data: Any - Input data for the operation
-                
-        Returns:
-            Dictionary containing the results of the operation
-        """
+       
         if 'method' not in model_input:
             raise ValueError("Input must contain a 'method' key to specify the operation")
 
@@ -84,17 +76,7 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         return model_uri, model_version_details.run_id, model_version_details.version
         
     def make_predictions(self, data: List[float], model, covered_region_in_km: int) -> Dict[str, Any]:
-        """
-        Make predictions for delivery region coverage.
         
-        Args:
-            data: List containing [latitude, longitude]
-            model: Trained KMeans model
-            covered_region_in_km: Maximum distance for region coverage
-            
-        Returns:
-            Dictionary with prediction results
-        """
         # Prepara as coordenadas do CEP
         coords_cep = (data[0], data[1])
     
@@ -126,12 +108,7 @@ class CustomModel(mlflow.pyfunc.PythonModel):
     
     # Retorna os centróides de cada cluster
     def get_cluster_centroids(self) -> List[Dict[str, Any]]:
-        """
-        Get cluster centroids coordinates.
         
-        Returns:
-            List of dictionaries containing centroid information
-        """
         centers = []
         for i, center in enumerate(self.model.cluster_centers_):
             c = dict()

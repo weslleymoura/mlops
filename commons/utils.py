@@ -71,10 +71,11 @@ def load_training_data(path_str):
 
         # Verificar se o nome do arquivo segue o padrão
         if not pattern.match(file.name):
-            print(f"⚠️  Pulando arquivo: {file.name} (não segue o padrão)")
+            #print(f"⚠️  Pulando arquivo: {file.name} (não segue o padrão)")
             continue
         else:
-            print(f"Processando arquivo: {file.name}")
+            #print(f"Processando arquivo: {file.name}")
+            pass
 
         # Acessa o arquivo
         with open(file) as f:
@@ -86,7 +87,7 @@ def load_training_data(path_str):
         instances.append(data)
 
     print ("Foram carregados {} arquivos".format(len(instances)))
-    print ("O objeto instances é do tipo {}".format(type(instances)))
+    #print ("O objeto instances é do tipo {}".format(type(instances)))
 
     return instances
 
