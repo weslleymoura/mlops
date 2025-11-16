@@ -50,6 +50,12 @@ Thumbs.db
 .env.secrets
 .github/workflows/.env.secrets
 
+# Ignore ChromaDB database
+chroma_db/
+
+# Ignore FAISS index
+faiss_index/
+
 # Project
 temp/
 train/logs/app.log

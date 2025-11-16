@@ -8,11 +8,10 @@
     9000,
     9001,
     5000,
-    5433,
-    5434
+    5433
   ],
-  "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip",
-  "postStartCommand": "docker compose up -d && sleep 10 && docker compose restart mlflow-server",
+  "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && chmod +x scripts/start-services.sh scripts/stop-services.sh",
+  "postStartCommand": "bash scripts/start-services.sh",
   "customizations": {
     "vscode": {
       "extensions": [

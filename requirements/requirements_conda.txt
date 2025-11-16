@@ -18,3 +18,5 @@ pyarrow
 plotly
 ipykernel
 python-dotenv
+pytorch
+faiss-cpu

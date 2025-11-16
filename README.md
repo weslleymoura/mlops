@@ -119,13 +119,13 @@ cd mlops
 
 ```bash
 # Criar ambiente com Python 3.13
-conda create -n mlops-util-env python=3.13
+conda create -n mlops-util-env python=3.11
 
 # Ativar ambiente
 conda activate mlops-util-env
 
 # Instalar dependências
-conda install -c conda-forge --file requirements_conda.txt
+conda install -c conda-forge --file requirements/requirements_conda.txt
 
 # Registrar kernel Jupyter
 python -m ipykernel install --user --name mlops-util-env
@@ -213,7 +213,7 @@ docker compose logs mlflow-server
 
 ```bash
 # Tente com diferentes canais
-conda install -c conda-forge -c anaconda --file requirements_conda.txt
+conda install -c conda-forge -c anaconda --file requirements/requirements_conda.txt
 ```
 
 ### Kernel do Jupyter não aparece

@@ -48,7 +48,7 @@ if __name__ == "__main__":
         config.read(config_path)
         
         model_name = args.model_name or config.get("ALL", "model_name")
-        version = args.version or config.get("ALL", "current_version")
+        version = args.version or config.get("ALL", "dev_version_to_promote")
     else:
         model_name = args.model_name
         version = args.version
