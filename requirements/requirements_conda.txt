@@ -11,7 +11,7 @@ sqlalchemy
 psycopg2-binary
 jupysql
 pandas
-mlflow
+mlflow=3.16.1
 boto3
 pyarrow
 plotly

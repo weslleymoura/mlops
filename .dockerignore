@@ -1,0 +1,19 @@
+# A imagem do MLflow server não precisa do código do projeto;
+# isso evita enviar centenas de MB de contexto no build.
+.git
+.claude
+.vscode
+.env
+.env.*
+notebooks
+data
+dist
+temp
+bkp
+docs
+exercise
+mlruns
+mlartifacts
+**/__pycache__
+**/.ipynb_checkpoints
+**/.DS_Store

@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir mlflow boto3 psycopg2-binary
+# Versões fixadas para que todos os alunos tenham o mesmo ambiente
+RUN pip install --no-cache-dir mlflow==3.16.1 boto3==1.43.108 psycopg2-binary==2.9.13
 
 COPY . /app
 CMD ["bash"]

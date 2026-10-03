@@ -29,7 +29,7 @@
 
 1. Crie o ambiente:
    ```bash
-   conda create -n mlops-util-env python=3.11
+   conda create -n mlops-util-env --override-channels -c conda-forge python=3.11
    ```
 2. Ative o ambiente:
    ```bash
@@ -37,8 +37,10 @@
    ```
 3. Instale as dependências:
    ```bash
-   conda install -c conda-forge --file requirements/requirements_conda.txt
+   conda install --override-channels -c conda-forge --file requirements/requirements_conda.txt
    ```
+
+> **Erro `CondaToSNonInteractiveError` (Terms of Service)?** Confira se os comandos acima incluem `--override-channels -c conda-forge`. Essa opção faz o conda usar somente o canal conda-forge, que não exige aceitar termos de uso.
 
 ### Abrir o Jupyter Lab
 
@@ -54,16 +56,27 @@
 
 ## Subir os Serviços Docker
 
-1. No diretório do projeto, execute:
+1. Crie o arquivo `.env` a partir do exemplo (sem ele, os notebooks não se conectam ao MLflow):
+   ```bash
+   cp .env.example .env
+   ```
+2. No diretório do projeto, execute:
    ```bash
    docker compose up
    ```
-2. Os serviços MLflow, MinIO e Postgres serão iniciados.
+3. Os serviços MLflow, CloudServer (S3) e Postgres serão iniciados.
+
+### Testar o Ambiente
+
+Para verificar se está tudo funcionando (Docker, portas, serviços e registro no MLflow), ative o ambiente conda e rode:
+```bash
+bash scripts/testar-ambiente.sh
+```
 
 ### Acessar os Serviços
 
 - MLflow UI: http://localhost:5010
-- MinIO Console: http://localhost:9001 (user: `user`, senha: `password`)
+- CloudServer (S3): http://localhost:9000 (access key: `user`, secret: `password`)
 - Postgres: localhost:5433 (user: `user`, senha: `password`)
 
 ## Dicas
@@ -76,6 +89,6 @@
   ```
 - [Arquivo de referência (comandos úteis)](docs/REFERENCE.md)
 
-Pronto! Agora você pode trabalhar localmente com MLflow, MinIO, Postgres e Jupyter Lab.
+Pronto! Agora você pode trabalhar localmente com MLflow, CloudServer (S3), Postgres e Jupyter Lab.
 
 ---

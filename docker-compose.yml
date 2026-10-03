@@ -1,8 +1,8 @@
-version: "3"
 services:
 
   cloudserver:
-    image: zenko/cloudserver
+    # Imagem sem atualizações desde 2022 (somente amd64); fixada por digest
+    image: zenko/cloudserver@sha256:b53e57829cf7df357323e60a19c9f98d2218f1b7ccb1d7cea5761a5a227a9ee3
     ports:
       - "9000:8000"
     environment:
@@ -18,7 +18,7 @@ services:
       retries: 10
 
   cloudserver-create-bucket:
-    image: amazon/aws-cli
+    image: amazon/aws-cli:2.37.9
     depends_on:
       cloudserver:
         condition: service_healthy
@@ -30,7 +30,7 @@ services:
       sh -c "aws --endpoint-url http://cloudserver:8000 s3 mb s3://bucket || aws --endpoint-url http://cloudserver:8000 s3 ls s3://bucket"
 
   postgres:
-    image: postgres
+    image: postgres:18
     restart: always
     environment:
       POSTGRES_DB: db
@@ -63,5 +63,11 @@ services:
       AWS_SECRET_ACCESS_KEY: password
       MLFLOW_TRACKING_URI: http://localhost:5010
     command: >
-      mlflow server --host 0.0.0.0 --port 5010 --backend-store-uri postgresql://user:password@postgres:5432/db --default-artifact-root s3://bucket --gunicorn-opts "--log-level debug"
+      mlflow server --host 0.0.0.0 --port 5010 --backend-store-uri postgresql+psycopg2://user:password@postgres:5432/db --default-artifact-root s3://bucket --gunicorn-opts "--log-level debug"
+    healthcheck:
+      test: [ "CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5010/health')" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
     restart: unless-stopped

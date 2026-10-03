@@ -51,7 +51,7 @@ docker exec -it mlops-mlflow-server-1 bash
 
 ```bash
 # Criar ambiente
-conda create -n mlops-util-env python=3.11
+conda create -n mlops-util-env --override-channels -c conda-forge python=3.11
 
 # Ativar ambiente
 conda activate mlops-util-env
@@ -70,10 +70,10 @@ conda env remove -n mlops-util-env
 
 ```bash
 # Instalar pacotes do arquivo
-conda install -c conda-forge --file requirements_conda.txt
+conda install --override-channels -c conda-forge --file requirements_conda.txt
 
 # Instalar pacote específico
-conda install -c conda-forge NOME_DO_PACOTE
+conda install --override-channels -c conda-forge NOME_DO_PACOTE
 ```
 
 ## MLFlow
