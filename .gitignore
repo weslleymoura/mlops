@@ -60,3 +60,8 @@ faiss_index/
 temp/
 train/logs/app.log
 scripts/correcao_exercicio.py
+# Material do professor (não publicar)
+docs/avaliacao-recuperacao.md
+
+# Claude Code
+.claude/
