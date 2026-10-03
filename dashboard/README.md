@@ -11,7 +11,7 @@ pip install -r requirements/requirements_dashboard.txt
 ## ▶️ Como Executar
 
 ```bash
-streamlit run dashboard/drift_monitor.py
+streamlit run dashboard/drift_monitor_framework.py
 ```
 
 O dashboard estará disponível em: `http://localhost:8501`
@@ -62,7 +62,7 @@ O dashboard tem cache de 5 minutos. Para forçar atualização:
 
 ## ⚠️ Pré-requisitos
 
-1. **MLflow Server** rodando em `http://localhost:5000`
+1. **MLflow Server** rodando em `http://localhost:5010`
 2. **API** gerando traces (predições na rota `/get-delivery-region`)
 3. **Arquivo drift_params.joblib** gerado pelo treinamento (em `temp/`)
 
@@ -90,7 +90,7 @@ uvicorn api.main:app --reload
 curl http://localhost:8000/get-delivery-region/-23.5505/-46.6333
 
 # 4. Inicie o dashboard
-streamlit run dashboard/drift_monitor.py
+streamlit run dashboard/drift_monitor_framework.py
 ```
 
 ## 🐛 Troubleshooting
@@ -110,6 +110,6 @@ streamlit run dashboard/drift_monitor.py
 
 ## 🔗 Links Úteis
 
-- MLflow UI: http://localhost:5000
-- MLflow Traces: http://localhost:5000/#/traces
+- MLflow UI: http://localhost:5010
+- MLflow Traces: http://localhost:5010/#/traces
 - API Docs: http://localhost:8000/docs

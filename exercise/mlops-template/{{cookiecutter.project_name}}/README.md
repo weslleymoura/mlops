@@ -44,11 +44,22 @@ Projeto gerado como parte do exercício de modularização do curso de MLOps.
 
 ## Como subir no GitHub
 
+Usando HTTP:
+
 ```bash
 git init
 git add .
 git commit -m "exercicio de modularizacao"
 git remote add origin https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}.git
+git push -u origin main
+```
+
+OU usando SSH:
+```bash
+git init
+git add .
+git commit -m "exercicio de modularizacao"
+git remote add origin git@github.com:{{cookiecutter.github_username}}/{{cookiecutter.project_name}}.git
 git push -u origin main
 ```
 
